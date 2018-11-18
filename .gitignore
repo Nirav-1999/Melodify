@@ -12,7 +12,7 @@ images/
 ########
 #Django#
 ########
-*/setting.py
+*/settings.py
 __pycache__/
 
 migrations/
