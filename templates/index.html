@@ -1,0 +1,12 @@
+{%extends 'music/base.html' %}
+
+{% block body %}
+    <div class="index_page">
+        
+        <img src="https://blogmedia.evbstatic.com/wp-content/uploads/wpmulti/sites/3/2017/01/03145133/twenty20_ec812a3a-48ad-40af-983b-129484cf6086.jpg" class="index-image img-responsive" >
+        <div class="Welcome_Note">  Welcome to Melodify!!!</div>
+        <a href="{% url 'login' %}">
+            <button type="button" class="btn btn-default" >Log In</button>
+        </a>
+    </div>
+{% endblock %}

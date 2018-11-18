@@ -1,0 +1,103 @@
+body,html{
+    height:100%;
+    background: url("images/bg3.jpg") no-repeat center center fixed;
+}
+
+
+/* base.html */
+.navbar{
+    border-radius: 0;
+    position: fixed;
+}
+
+.navbar-brand{
+    font-family: 'Dancing Script',cursive;
+}
+
+.dropdown:hover .dropdown-menu{
+    display:block;
+    background-color:rgb(71,68,68);
+}
+
+.dropdown-menu:hover a:hover{
+    opacity: 0.6;
+}
+
+.dropdown:hover a{
+    color: white;
+}
+
+
+/* index.html */
+.index-image{
+    width:100%; 
+}
+
+.index_page{
+    position: relative;
+    color: black;
+}
+
+.index_page .btn {
+    height: 50px;
+    position: absolute;
+    top: 90%;
+    left: 52%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color: #555;
+    color: white;
+    font-size: 16px;
+    padding: 12px 24px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    opacity: 0.5;
+  }
+
+.index_page .btn:hover {
+background-color: black;
+}
+
+.index_page .Welcome_Note{
+    position: absolute;
+    font-size: 600%;
+    top: 10%;
+    left: 25%;
+    font-family: 'Lobster Two', cursive;
+    color:black;
+}
+
+
+/* chats.html */
+.chats{
+
+    background: url("images/bg1.jpg") no-repeat center center fixed;
+    background-size: cover;
+}
+
+.media{
+    float: left;
+    width: 80px;
+    padding: 10px;
+}
+
+.chats-container{
+
+    padding: 10px;
+}
+
+
+/* all_albums.html */
+.thumbnail{
+    background-color: antiquewhite;
+    height: 50%;
+
+}
+
+.album img{
+    padding: 10px;
+    width: 100%;
+    height: 300px;
+}
+

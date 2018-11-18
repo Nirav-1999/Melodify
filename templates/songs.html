@@ -1,0 +1,123 @@
+{% extends "music/base.html" %}
+
+
+{% load staticfiles %}
+{% block body %}
+<div class="songs-page">
+
+
+    <div class="container-fluid">
+        <br><br><br><br>
+        
+        <div id="mycarousel" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#mycarousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#mycarousel" data-slide-to="1" class=""></li>
+                    <li data-target="#mycarousel" data-slide-to="2" class=""></li>
+                    <li data-target="#mycarousel" data-slide-to="3" class=""></li>
+                </ol>
+            
+            <div class="carousel-inner">
+                <div class="item active">
+                    <div class="first-image">
+                        <img src="{% static 'music/images/carousel_slide1.jpg' %}" alt="" >
+                        <div class="carousel-caption">
+                            Music is angels talking
+                            
+                        </div>
+
+                    </div>
+
+                </div>
+
+                
+                <div class="item">
+                    <img src="{% static 'music/images/carousel_slide2.jpg' %}" alt="" >
+
+                    <div class="container">
+                        <div class="carousel-caption">
+                            Listen share repeat...
+                            
+                        </div>
+                    </div>
+                
+                </div>
+ 
+                <div class="item">
+                    <a href="#"><img src="{% static 'music/images/carousel_slide3.jpg' %}" alt="" ></a>
+
+                    <div class="container">
+                        <div class="carousel-caption">
+                            Know about events all around the world
+                            
+                        </div>
+                    </div>
+                
+                </div>
+                <div class="item">
+                    <a href="{% url 'chats:chats-index' %}"><img src="{% static 'music/images/carousel_slide4.jpg' %}" alt="" ></a>
+
+                    <div class="container">
+                        <div class="carousel-caption">
+                            Socialize in the chat section and find your best music match...
+                            
+                        </div>
+                    </div>
+                
+                </div>
+                
+
+            <a class="left carousel-control" href="#mycarousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+            <a class="right carousel-control" href="#mycarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+        </div>
+
+        
+    
+        
+    </div>
+
+    <div class="container-fluid">
+        <div class="intro-text" style="color: white;">
+            <br><br>
+            <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;text-align: center; font-size: 50px;" ><u>Welcome to Meloify!!!</u></div>
+            <br>
+            <p style="font-size: 20px;">Get engaged in the beautiful and mesmerising world of music provided by one and only <b>Melodify</b>. Listen,share and repeat... Music is the only way to elighten your mind and forget all your worries. We at Melodify provide you the perfect platform for sharing and listening to the best music across the web.</p>
+
+        </div>
+
+    </div>
+    
+
+    <div class="grid">
+        <br><br><br>
+        <a href="{% url 'music:all-albums' %}">
+        <button type="button" class="btn btn-lg btn-primary ">All Albums</button>
+        
+        <br><br>
+        
+        
+        <img src="{% static 'music/images/The_Marshall_Mathers_LP.jpg' %}">
+        <img src="{% static 'music/images/Beyonce-Beyonce-greatest-album-covers-billboard-1000x1000.jpg' %}">
+        <img src="{% static 'music/images/JustinBieberPurpose.jpg' %}">
+        <img src="{% static 'music/images/GOYK-selena.jpg' %}">
+        <img src="{% static 'music/images/Shakira-she_wolf.jpg' %}">
+        <img src="{% static 'music/images/Taylor_Swift_Red_Album_Art_Cover.jpg' %}">
+        <img src="{% static 'music/images/Green-Day-American-Idiot-album-covers-billboard-1000x1000.jpg' %}">
+        <img src="{% static 'music/images/Taylor-Swift-1989-album-covers-billboard-1000x1000.jpg' %}">
+        <img src="{% static 'music/images/Janet-Jackson-Rhythm-Nation-1814-album-covers-billboard-1000x1000.jpg' %}">
+        <img src="{% static 'music/images/Thriller.jpg' %}">
+        <img src="{% static 'music/images/Johnny-Cash-American-IV-The-Man-Comes-Around-album-covers-billboard-1000x1000.jpg' %}">
+        <img src="{% static 'music/images/monae-51bd3ea0-810d-4263-b0c8-403c1893e714.jpg' %}">
+        <img src="{% static 'music/images/blackpanther-7802180c-482f-4e42-8927-a242784c0a7e.jpg' %}">
+        <img src="{% static 'music/images/willienelson-8d9a1859-de7e-47cf-9148-db0f19c4eebb.jpg' %}">
+        <img src="{% static 'music/images/carlile-471a83d1-7bcc-4177-bae0-a9ed5109035c.jpg' %}">
+
+        </a>
+    </div>
+    
+</div>
+{% endblock body%}
+
+
+
+

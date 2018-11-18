@@ -1,0 +1,72 @@
+{%extends 'music/base.html' %}
+<title>{% block title %}Album Details{% endblock %}</title>
+
+{% block body %}
+<br><br><br><br>
+
+    <div class="container-fluid songs-container">
+
+        <!-- Album Logo -->
+
+        <div class="row">
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+
+                <div class="panel panel-default" style="background-color: bisque;">
+                    <div class="panel-body" >
+                        <img src="{{ album.album_logo.url }}" alt="{{ album.artist }}" class="img-responsive" style="height: 350px;width: auto; ">
+                        <h1>{{ album.album_title }} <small>{{ album.genre }}</small></h1>
+                        <h2>{{ album.artist }}</h2>
+                    </div>
+                </div>
+            </div>
+            
+           
+
+            
+            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                <ul class="nav nav-pills" style="margin-bottom: 10px;">
+                    <li role="presentation" class="active"><a href="{% url 'music:songs'  %}">View All</a></li>
+                    <li role="presentation"><a href="{% url 'music:add-song' %}">Add New Song</a></li>
+                </ul>
+
+                <!-- Table -->
+                <div class="panel panel-default" style="background-color: bisque;">
+                    <div class="panel-body">
+        
+                        <div class="table-responsive" >
+                            <table class="table table-hover"> 
+                                <h1>All Songs</h1>
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Favourite</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for song in album.song_set.all %}
+
+                                        <tr>
+                                            <td>{{song.song_title}}</td>
+                                            <td>hi</td>
+                                            <td>
+                                                <a target="_blank" href="{{ song.audio_file.url }}">
+                                                    <button type="button" class="btn btn-success btn-xs">
+                                                        <span class="glyphicon glyphicon-play"></span>&nbsp; Play
+                                                    </button>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                        
+                                </tbody>
+                            </table>
+                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

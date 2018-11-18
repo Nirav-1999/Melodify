@@ -1,0 +1,24 @@
+################
+#Local_Database#
+################
+db.sqlite3
+
+#############
+#Media Files#
+#############
+media/
+images/
+
+########
+#Django#
+########
+melodify/setting.py
+__pycache__/
+
+migrations/
+
+########
+#VSCODE#
+########
+\.vscode/*
+

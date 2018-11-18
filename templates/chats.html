@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+
+{% block body %}
+    <div class="chats">
+        <br><br><br>
+        <div class="form" style="padding: 20px;" id="inputchat">
+            <form method="post" role="form" enctype="multipart/form-data">
+                {% csrf_token %}
+                
+                
+                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                    <textarea name="chat" id="input" class="form-control" rows="3" required="required"></textarea>
+   
+                </div>
+                
+                
+                    
+                <button class="btn btn-success" type="submit">Chat</button>
+
+            </form>
+        </div>
+
+
+        {% if chats %}
+        <br><br>
+        <div class="chats-container" >
+            
+            {% for chat in chats %}
+            
+            <div class="panel panel-default" {% ifequal request.user chat.user %} style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;background-color: aquamarine;width: 65%;transform: translate(50%,0%);" {% endifequal %} style="width:65%;">
+                <div class="panel-body">
+                    <img src="https://www.w3schools.com/bootstrap4/img_avatar3.png" alt="Media" class="media" >
+                <h2 style="padding: 10px;">{{chat.user}}</h2>
+                <h4 >{{chat.chat}}</h4>
+                </div>
+            </div>
+       
+            
+            {% endfor %}
+        </div>
+        
+        {% endif %}
+        
+</div>
+    
+{% endblock body %}
+    
