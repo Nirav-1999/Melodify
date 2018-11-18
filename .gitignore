@@ -12,7 +12,7 @@ images/
 ########
 #Django#
 ########
-/melodify/setting.py
+*/setting.py
 __pycache__/
 
 migrations/
