@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <link href="https://fonts.googleapis.com/css?family=Crete+Round|Pacifico" rel="stylesheet">
+    <div class="last_fm">
+    <br><br><br>
+    
+    
+        {% if request.user.is_authenticated %}
+
+ 
+        <h2>Enter the name of the album and the artist</h1>
+        <form role="search" class="form-inline" method="GET" action="#">
+           
+
+         
+            <div class="form-group" style="padding-left:10px;padding-right:5px;">
+                <label class="sr-only" for="">Album</label>
+                <input type="text" class="form-control" id="" name="album" placeholder="Album-name" style="width:500px;">
+            </div>
+            <div class="form-group" style="padding-left:5px;padding-right:10px;">
+                <label class="sr-only" for="">Artist</label>
+                <input type="text" class="form-control" id="" name="artist" placeholder="Artist-name" style="width:500px;">
+            </div>
+            
+                
+            
+                <button type="submit" class="btn btn-success">Search</button>    
+        
+        </form> 
+        
+        {% if album %}
+            
+            {% if album.success %}
+                <div class="last-fm-album-info" style="padding-left:20px;">
+                    
+                    <img src="{{img_url}}" class="img-responsive" alt="Sorry image can't be displayed" style="padding-top:20px;">
+                    <h1>{{album.album.name}}</h1>
+                    
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Songs</th>
+                                    <th>Duration</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                                {% for song in songs %}
+                                    <tr>
+                                        <td>
+                                            {{forloop.counter}}
+                                        </td>
+                                        <td>
+                                            {{song.0}}
+                                        </td>
+                                        <td>
+                                            {{song.1}} sec
+                                        </td>
+                                    </tr>
+                                    
+                                {% endfor %}
+                                    
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                    
+        
+        
+                </div>
+                <br>
+                <h2>Published : {{album.album.wiki.published}}</h2>
+                
+                <h1 style="color:white;">
+                    Summary
+                </h1>
+                <p  style="color:white;">
+                    {{album.album.wiki.summary}}
+                </p>
+                <h1 style="color:white;">
+                    Content
+                </h1>
+                <p style="color:white;">
+                    {{album.album.wiki.content}}
+                </p>
+                
+                
+             
+                
+            {% endif %}
+           
+                
+            
+        {% endif %}
+            
+        
+
+        
+        
+        
+    </div>
+    
+    {% endif %}  
+{% endblock %}
+
+bs3-ta

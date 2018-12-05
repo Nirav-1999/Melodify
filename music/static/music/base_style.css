@@ -91,13 +91,34 @@ background-color: black;
 /* all_albums.html */
 .thumbnail{
     background-color: antiquewhite;
-    height: 50%;
+    height: 500px;
 
 }
 
-.album img{
+
+
+.all-albums .album img{
     padding: 10px;
     width: 100%;
     height: 300px;
 }
 
+/* last_fm.html */
+
+
+.last_fm h2{
+    color: aliceblue;
+    font-family: 'Times New Roman', Times, serif;
+    padding-left: 10px;
+    
+}
+
+.last-fm-album-info{
+    color: white;
+}
+.last-fm-album-info h1{
+    font-family: 'Crete Round', serif;
+}
+.last-fm-album-info .table tbody tr:hover{
+    color: black;
+}

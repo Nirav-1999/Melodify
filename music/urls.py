@@ -31,12 +31,13 @@ urlpatterns = [
     #/music/song/2/delete/
     url(r'^song/(?P<pk>[0-9]+)/delete/$',views.SongDeleteView.as_view(),name='song-delete'),
     
-    
     #api_views
     url(r'^api/',include(router.urls)),
 
-
     #shema-view
     url(r'^schema/$',schema_view),
+
+    #last_fm-api_view
+    url(r'^last-fm/$',views.lastfmApiGetAlbum,name='getAlbum'),
 ]
 

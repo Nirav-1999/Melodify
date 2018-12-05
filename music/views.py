@@ -9,7 +9,7 @@ from rest_framework.reverse import reverse
 from rest_framework import permissions
 from rest_framework import viewsets
 
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 
 from django.views import generic
 from django.views.generic.edit import CreateView,DeleteView,UpdateView
@@ -21,6 +21,8 @@ from .models import Album,Song
 from .serializers import AlbumSerializer, UserSerializer
 from django.contrib.auth import get_user_model
 from .permissions import IsOwnerOrReadOnly
+
+import requests
 
 User=get_user_model()
 
@@ -67,7 +69,7 @@ class SongDeleteView(LoginRequiredMixin,generic.DeleteView):
 
 
 
-#API-Views
+#REST-API-Views
 
 class AlbumViewSet(viewsets.ModelViewSet):
     queryset=Album.objects.all()
@@ -83,3 +85,33 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class=UserSerializer
     
 
+#LAST.FM-API-VIEWS
+def lastfmApiGetAlbum(request):
+    album={}
+    songs=[]
+    album_img_url=''
+    if 'album' in request.GET:
+   
+        album_name=request.GET['album']
+        artist=request.GET['artist']
+        api_key='4b6e8d87aa5c790a95ca2bfc693fd9f4'
+        api_url='http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key={key}&artist={artist}&album={album}&format=json'.format(key=api_key,artist=artist,album=album_name)
+        album_get_url=requests.get(api_url)
+        search_was_successful = (album_get_url.status_code == 200)  # 200 = SUCCESS
+        album=album_get_url.json()
+        album['success'] = search_was_successful
+        a=album['album']
+        b=a['image']
+        album_img_url=b[3]['#text']
+        c=a['tracks']
+        d=c['track']
+        for tracks in d:
+            songs.append([tracks['name'],tracks['duration']])
+            
+       
+    return render(request,'last_fm.html',{
+        'album':album,
+        'img_url':album_img_url,
+        'songs':songs,
+        }
+        )
