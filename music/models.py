@@ -25,7 +25,7 @@ class Song(models.Model):
     is_favourite=models.BooleanField(default=False)
 
     def get_absolute_url(self):
-        return reverse('music:songs')
+        return reverse('music:detail',kwargs={'pk':self.album.pk})
     
     def __str__(self):
         return self.song_title

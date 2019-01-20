@@ -9,18 +9,23 @@ from rest_framework.reverse import reverse
 from rest_framework import permissions
 from rest_framework import viewsets
 
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 
 from django.views import generic
 from django.views.generic.edit import CreateView,DeleteView,UpdateView
 from django.views.generic import View
-
+from django.core import serializers
 from django.urls import reverse_lazy
+from django.http import request, HttpRequest
 
 from .models import Album,Song
 from .serializers import AlbumSerializer, UserSerializer
 from django.contrib.auth import get_user_model
 from .permissions import IsOwnerOrReadOnly
+from .forms import SongForm
+
+from importlib import import_module
+from django.conf import settings
 
 import requests
 
@@ -48,25 +53,70 @@ class AlbumDetailView(LoginRequiredMixin,generic.DetailView):
     model = Album
     template_name = "detail.html"
     login_url='login'
+   
+
+
+
+
     
 class AlbumCreateView(LoginRequiredMixin,generic.CreateView):
     model=Album
     template_name='album_new.html'
-    fields='__all__'
+    fields=['album_title','artist','genre','album_logo']
+    login_url='login'
+    def form_valid(self,form):
+        form.instance.owner=self.request.user
+        form.save()
+        return redirect(reverse('music:all-albums'))
+
 
 class AlbumDeleteView(LoginRequiredMixin,generic.DeleteView):
     model=Album
-    success_url=reverse_lazy('music:songs')
+    success_url=reverse_lazy('music:all-albums')
+    login_url='login'
 
 class SongCreateView(LoginRequiredMixin,generic.CreateView):
     model=Song
     template_name='song_new.html'
-    fields='__all__'
+    form_class = SongForm
+    login_url='login'
 
+    def post(self,request):
+        new_flow={}
+        if 'album_title' in request.POST:
+            album_title = request.POST['album_title']
+            album = Album.objects.filter(album_title__startswith = album_title)
+            self.request.session['album'] = serializers.serialize('json',album)
+            print(self.request.session['album'])
+            return redirect(reverse('music:add-song'))
+        elif request.method == 'POST':
+            form = SongForm(request.POST)
+            print(form)
+            if form.is_valid():
+                new_flow=form.save(commit=False)
+                new_flow.album=self.request.session['album']
+                print(new_flow)
+                print(44)
+                new_flow.save()
+            else:
+                print("Invalid form")
+                print(form.errors)
+              
+               
+            return redirect(reverse('music:all-albums'))
+            
+
+
+
+        
+
+
+
+   
 class SongDeleteView(LoginRequiredMixin,generic.DeleteView):
     model=Song
-    success_url=reverse_lazy('music:songs')
-
+    success_url=reverse_lazy('music:all-albums' )
+    login_url='login'
 
 
 #REST-API-Views

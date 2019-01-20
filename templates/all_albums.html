@@ -6,7 +6,15 @@
 
     <div class="all-albums">
             <br><br><br><br>
-        
+
+            
+            <button type="button" class="btn btn-primary">
+                <a href="{% url 'music:add' %}" style="color:white;">
+                    Add a new album
+                </a>
+            </button>
+            <br><br>
+           
         <div class="row">
             
             
@@ -29,7 +37,7 @@
                                     </a>
             
                                     <!-- Delete Album -->
-                                    <form action="#" method="post" style="display: inline;">
+                                    <form action="{% url 'music:delete' album.id %}" method="post" style="display: inline;">
                                             {% csrf_token %}
                                                     <input type="hidden" name="album_id" value="{{ album.id }}" />
                                                     <button type="submit" class="btn btn-default btn-md">
