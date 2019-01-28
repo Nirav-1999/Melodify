@@ -10,7 +10,7 @@ from rest_framework import permissions
 from rest_framework import viewsets
 
 from django.shortcuts import get_object_or_404, render, redirect
-
+from django.forms import inlineformset_factory
 from django.views import generic
 from django.views.generic.edit import CreateView,DeleteView,UpdateView
 from django.views.generic import View
@@ -85,38 +85,35 @@ class SongCreateView(LoginRequiredMixin,generic.CreateView):
         new_flow={}
         if 'album_title' in request.POST:
             album_title = request.POST['album_title']
-            album = Album.objects.filter(album_title__startswith = album_title)
-            self.request.session['album'] = serializers.serialize('json',album)
+            self.request.session['album'] = album_title
             print(self.request.session['album'])
             return redirect(reverse('music:add-song'))
         elif request.method == 'POST':
-            form = SongForm(request.POST)
-            print(form)
+            album = Album.objects.get(album_title__startswith = self.request.session['album'])
+            print(album.id)
+            form = SongForm(request.POST, request.FILES)
             if form.is_valid():
+                form.full_clean()
                 new_flow=form.save(commit=False)
-                new_flow.album=self.request.session['album']
+                new_flow.album=album
                 print(new_flow)
                 print(44)
                 new_flow.save()
+                
             else:
                 print("Invalid form")
                 print(form.errors)
-              
-               
-            return redirect(reverse('music:all-albums'))
-            
+            return redirect(reverse('music:detail',kwargs = {'pk' : album.id}))              
 
-
-
-        
-
-
-
-   
 class SongDeleteView(LoginRequiredMixin,generic.DeleteView):
     model=Song
-    success_url=reverse_lazy('music:all-albums' )
     login_url='login'
+
+    def get_success_url(self):
+        pk = self.kwargs['pk']
+        song = Song.objects.get(pk = pk)
+        album = song.album
+        return reverse_lazy('music:detail',kwargs = {'pk': album.id} )
 
 
 #REST-API-Views
@@ -165,3 +162,4 @@ def lastfmApiGetAlbum(request):
         'songs':songs,
         }
         )
+
