@@ -38,6 +38,6 @@ urlpatterns = [
     url(r'^schema/$',schema_view),
 
     #last_fm-api_view
-    url(r'^last-fm/$',views.lastfmApiGetAlbum,name='getAlbum'),
+    url(r'^songpedia/$',views.lastfmApiGetAlbum,name='getAlbum'),
 ]
 

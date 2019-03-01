@@ -23,11 +23,12 @@ from .serializers import AlbumSerializer, UserSerializer
 from django.contrib.auth import get_user_model
 from .permissions import IsOwnerOrReadOnly
 from .forms import SongForm
-
+from .videofinder import gather_links,create_workers,crawl,rem_links
 from importlib import import_module
 from django.conf import settings
 
 import requests
+import re
 
 User=get_user_model()
 
@@ -136,9 +137,13 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
 def lastfmApiGetAlbum(request):
     album={}
     songs=[]
+    crawl_url = []
+    links = []
+    summary=''
+    content=''
     album_img_url=''
     if 'album' in request.GET:
-   
+        
         album_name=request.GET['album']
         artist=request.GET['artist']
         api_key='4b6e8d87aa5c790a95ca2bfc693fd9f4'
@@ -147,19 +152,39 @@ def lastfmApiGetAlbum(request):
         search_was_successful = (album_get_url.status_code == 200)  # 200 = SUCCESS
         album=album_get_url.json()
         album['success'] = search_was_successful
+        ########################################
         a=album['album']
         b=a['image']
         album_img_url=b[3]['#text']
         c=a['tracks']
         d=c['track']
+        pattern = r'<a.*</a>.'
+        text = a['wiki']
+        text1 = text['summary']
+        text2 = text['content']
+        summary = re.sub(pattern,'',text1)
+        content = re.sub(pattern,'',text2)
+        #########################################
         for tracks in d:
             songs.append([tracks['name'],tracks['duration']])
-            
-       
+            crawl_url.append(tracks['url'])  
+        links = create_workers()
+        crawl(crawl_url)
+        rem_links()
+        x_links=[]
+
+        for link in links:
+            x_links.append(list(link))
+        for i in range(len(songs)):
+            songs[i].append(x_links[i])
+        print(songs)
+
     return render(request,'last_fm.html',{
         'album':album,
         'img_url':album_img_url,
         'songs':songs,
+        'summary':summary,
+        'content':content,
         }
         )
 

@@ -49,18 +49,23 @@
                             <tbody>
                                 
                                 {% for song in songs %}
+                                
                                     <tr>
+                                       
                                         <td>
                                             {{forloop.counter}}
                                         </td>
                                         <td>
+                                            <a href="{{song.2.0}}">
                                             {{song.0}}
+                                            </a>
                                         </td>
                                         <td>
                                             {{song.1}} sec
                                         </td>
-                                    </tr>
                                     
+                                    </tr>
+                               
                                 {% endfor %}
                                     
                                 
@@ -78,13 +83,13 @@
                     Summary
                 </h1>
                 <p  style="color:white;">
-                    {{album.album.wiki.summary}}
+                    {{summary}}
                 </p>
                 <h1 style="color:white;">
                     Content
                 </h1>
                 <p style="color:white;">
-                    {{album.album.wiki.content}}
+                    {{content}}
                 </p>
                 
                 
