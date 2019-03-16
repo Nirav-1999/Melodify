@@ -1,5 +1,8 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+from chatterbot import ChatBot
+from chatterbot.trainers import ListTrainer,ChatterBotCorpusTrainer
+
 from rest_framework import status
 from rest_framework import generics
 from rest_framework.views import APIView
@@ -31,6 +34,31 @@ import requests
 import re
 
 User=get_user_model()
+# bot = ChatBot(
+#     'Norman',
+#     filters=[filters.get_recent_repeated_responses]
+#     storage_adapter='chatterbot.storage.SQLStorageAdapter',
+#     logic_adapters=[
+#         'chatterbot.logic.BestMatch',
+#         'chatterbot.logic.MathematicalEvaluation',
+
+#     ],
+#     database_uri='sqlite:///database.sqlite3'
+# )
+# trainer = ChatterBotCorpusTrainer(bot)
+# # print(bot.storage.count())
+# trainer.train(
+#     "chatterbot.corpus.english"
+# )
+# # trainer.export_for_training('./my_export.json')
+# while True:
+#     try:
+#         bot_input = bot.get_response(input())
+#         print(bot_input)
+
+
+#     except(KeyboardInterrupt, EOFError, SystemExit):
+#         break
 
 
 # Create your views here.
@@ -188,3 +216,4 @@ def lastfmApiGetAlbum(request):
         }
         )
 
+#Chat bot
